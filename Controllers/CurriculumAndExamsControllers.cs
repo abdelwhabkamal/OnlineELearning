@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AsqueraLms.Api.Data;
-using AsqueraLms.Api.DTOs.Curriculum;
-using AsqueraLms.Api.DTOs.Exams;
-using AsqueraLms.Api.Models.Entities;
+using OELearning.Api.Data;
+using OELearning.Api.DTOs.Curriculum;
+using OELearning.Api.DTOs.Exams;
+using OELearning.Api.Models.Entities;
 
-namespace AsqueraLms.Api.Controllers;
+namespace OELearning.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

@@ -1,16 +1,16 @@
-﻿using System.Text;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using AsqueraLms.Api.Data;
-using AsqueraLms.Api.Services.Implementations;
+using OELearning.Api.Data;
+using OELearning.Api.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. Database Connection (SQL Server)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-    ?? "Server=(localdb)\\mssqllocaldb;Database=AsqueraLmsDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
+    ?? "Server=(localdb)\\mssqllocaldb;Database=OELearningDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -20,7 +20,7 @@ builder.Services.AddScoped<IQrCodeService, QrCodeService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 // 3. JWT Authentication & Authorization
-var jwtKey = builder.Configuration["Jwt:Key"] ?? "AsqueraSuperSecretKeyLongEnoughForHmacSha256Security12345!";
+var jwtKey = builder.Configuration["Jwt:Key"] ?? "OELearningSuperSecretKeyLongEnoughForHmacSha256Security12345!";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -30,8 +30,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"] ?? "AsqueraApi",
-            ValidAudience = builder.Configuration["Jwt:Audience"] ?? "AsqueraWebClient",
+            ValidIssuer = builder.Configuration["Jwt:Issuer"] ?? "OELearningApi",
+            ValidAudience = builder.Configuration["Jwt:Audience"] ?? "OELearningWebClient",
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
@@ -59,9 +59,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "ASQUERA E-Learning Platform APIs",
+        Title = "OELearning Platform APIs",
         Version = "v1",
-        Description = "API endpoints for Asquera LMS - Students, Centers, Groups, Exams, Curriculum, Attendance, and Payments."
+        Description = "API endpoints for OELearning - Students, Centers, Groups, Exams, Curriculum, Attendance, and Payments."
     });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -112,7 +112,7 @@ using (var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ASQUERA LMS API v1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "OELearning API v1");
     c.RoutePrefix = string.Empty; // Serve Swagger UI at root "/"
 });
 

@@ -1,6 +1,6 @@
-﻿using AsqueraLms.Api.Models.Enums;
+using OELearning.Api.Models.Enums;
 
-namespace AsqueraLms.Api.DTOs.Auth
+namespace OELearning.Api.DTOs.Auth
 {
     public record LoginRequestDto(string PhoneNumber, string Password);
     public record AuthResponseDto(string Token, string FullName, string PhoneNumber, string Role, int UserId, int? StudentProfileId);
@@ -13,14 +13,14 @@ namespace AsqueraLms.Api.DTOs.Auth
     );
 }
 
-namespace AsqueraLms.Api.DTOs.Students
+namespace OELearning.Api.DTOs.Students
 {
     public record StudentListDto(
         int Id,
         int UserId,
         int RowNumber,
         string FullName,
-        string AsqueraCode,
+        string OELearningCode,
         string GroupName,
         string CenterName,
         string StudentPhoneNumber,
@@ -50,7 +50,7 @@ namespace AsqueraLms.Api.DTOs.Students
     );
 }
 
-namespace AsqueraLms.Api.DTOs.Centers
+namespace OELearning.Api.DTOs.Centers
 {
     public record CenterDto(
         int Id,
@@ -74,14 +74,14 @@ namespace AsqueraLms.Api.DTOs.Centers
     );
 }
 
-namespace AsqueraLms.Api.DTOs.Curriculum
+namespace OELearning.Api.DTOs.Curriculum
 {
     public record CourseDto(int Id, string Title, string? Description, int AcademicYearId, List<UnitDto> Units);
     public record UnitDto(int Id, string Title, int Order, List<LectureDto> Lectures);
     public record LectureDto(int Id, string Title, string? Description, string? VideoUrl, string? AttachmentPdfUrl, decimal Price, bool IsFree, int Order);
 }
 
-namespace AsqueraLms.Api.DTOs.Exams
+namespace OELearning.Api.DTOs.Exams
 {
     public record ExamDto(int Id, string Title, int DurationMinutes, int TotalMarks, int PassingMarks, int QuestionsCount);
     public record ExamDetailDto(int Id, string Title, int DurationMinutes, int TotalMarks, List<QuestionDto> Questions);

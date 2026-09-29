@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using AsqueraLms.Api.Models.Entities;
-using AsqueraLms.Api.Models.Enums;
+using Microsoft.EntityFrameworkCore;
+using OELearning.Api.Models.Entities;
+using OELearning.Api.Models.Enums;
 
-namespace AsqueraLms.Api.Data;
+namespace OELearning.Api.Data;
 
 public class AppDbContext : DbContext
 {
@@ -35,7 +35,7 @@ public class AppDbContext : DbContext
             .IsUnique();
 
         modelBuilder.Entity<StudentProfile>()
-            .HasIndex(s => s.AsqueraCode)
+            .HasIndex(s => s.OELearningCode)
             .IsUnique();
 
         modelBuilder.Entity<StudentProfile>()

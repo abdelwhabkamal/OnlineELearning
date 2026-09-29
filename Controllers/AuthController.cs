@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AsqueraLms.Api.Data;
-using AsqueraLms.Api.DTOs.Auth;
-using AsqueraLms.Api.Models.Entities;
-using AsqueraLms.Api.Models.Enums;
-using AsqueraLms.Api.Services.Implementations;
+using OELearning.Api.Data;
+using OELearning.Api.DTOs.Auth;
+using OELearning.Api.Models.Entities;
+using OELearning.Api.Models.Enums;
+using OELearning.Api.Services.Implementations;
 
-namespace AsqueraLms.Api.Controllers;
+namespace OELearning.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -68,7 +68,7 @@ public class AuthController : ControllerBase
         {
             FullName = request.FullName,
             PhoneNumber = request.PhoneNumber,
-            Email = $"{request.PhoneNumber}@student.asquera.com",
+            Email = $"{request.PhoneNumber}@student.OELearning.com",
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
             Role = UserRole.Student
         };
@@ -80,11 +80,11 @@ public class AuthController : ControllerBase
         var profile = new StudentProfile
         {
             UserId = user.Id,
-            AsqueraCode = randomCode,
+            OELearningCode = randomCode,
             ParentPhoneNumber = request.ParentPhoneNumber,
             GroupId = request.GroupId,
             Status = StudentStatus.Pending,
-            QrCodePayload = $"ASQUERA-STU-{randomCode}-{user.PhoneNumber}"
+            QrCodePayload = $"OELearning-STU-{randomCode}-{user.PhoneNumber}"
         };
 
         _context.StudentProfiles.Add(profile);

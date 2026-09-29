@@ -1,4 +1,4 @@
-﻿namespace AsqueraLms.Api.Models.Enums;
+namespace OELearning.Api.Models.Enums;
 
 public enum UserRole
 {

@@ -1,6 +1,6 @@
-﻿using AsqueraLms.Api.Models.Enums;
+using OELearning.Api.Models.Enums;
 
-namespace AsqueraLms.Api.Models.Entities;
+namespace OELearning.Api.Models.Entities;
 
 public class User
 {
@@ -55,7 +55,7 @@ public class Group
 public class AcademicYear
 {
     public int Id { get; set; }
-    public string Name { get; set; } = string.Empty; // e.g., "الصف الثالث الثانوي", "Senior 3"
+    public string Name { get; set; } = string.Empty; // e.g., "???? ?????? ???????", "Senior 3"
     public ICollection<Course> Courses { get; set; } = new List<Course>();
     public ICollection<Group> Groups { get; set; } = new List<Group>();
 }
@@ -66,7 +66,7 @@ public class StudentProfile
     public int UserId { get; set; }
     public User User { get; set; } = null!;
 
-    public string AsqueraCode { get; set; } = string.Empty; // e.g. "641FF", "076QT", "977UI"
+    public string OELearningCode { get; set; } = string.Empty; // e.g. "641FF", "076QT", "977UI"
     public string? QrCodePayload { get; set; }
     public string ParentPhoneNumber { get; set; } = string.Empty;
     public string? SchoolName { get; set; }

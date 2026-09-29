@@ -1,10 +1,10 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using AsqueraLms.Api.Models.Entities;
+using OELearning.Api.Models.Entities;
 
-namespace AsqueraLms.Api.Services.Implementations;
+namespace OELearning.Api.Services.Implementations;
 
 public interface ITokenService
 {
@@ -22,7 +22,7 @@ public class TokenService : ITokenService
 
     public string GenerateJwtToken(User user, int? studentProfileId = null)
     {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"] ?? "AsqueraSuperSecretKeyLongEnoughForHmacSha256Security12345!"));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"] ?? "OELearningSuperSecretKeyLongEnoughForHmacSha256Security12345!"));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var claims = new List<Claim>
@@ -39,8 +39,8 @@ public class TokenService : ITokenService
         }
 
         var token = new JwtSecurityToken(
-            issuer: _config["Jwt:Issuer"] ?? "AsqueraApi",
-            audience: _config["Jwt:Audience"] ?? "AsqueraWebClient",
+            issuer: _config["Jwt:Issuer"] ?? "OELearningApi",
+            audience: _config["Jwt:Audience"] ?? "OELearningWebClient",
             claims: claims,
             expires: DateTime.UtcNow.AddDays(7),
             signingCredentials: creds

@@ -1,4 +1,4 @@
-## Asquera LMS API - Deployment Guide
+## OELearning API - Deployment Guide
 
 ### Architecture Considerations for Cloud Deployment
 1. **Database:** Your local SQL Server (`ABDELWAHAB\SQLEXPRESS`) is on your laptop and not publicly accessible from the internet. When deploying to the cloud:
@@ -33,11 +33,11 @@
    ```
 2. Go to [Render.com](https://render.com) and click **New > Web Service**.
 3. Select your GitHub repository.
-4. Render will detect the [Dockerfile](file:///c:/Users/Lenovo%20-%20LOQ/Desktop/AsqueraLms.Api/Dockerfile).
+4. Render will detect the [Dockerfile](file:///c:/Users/Lenovo%20-%20LOQ/Desktop/OELearning.Api/Dockerfile).
 5. In **Environment Variables**, add:
    - `ConnectionStrings__DefaultConnection`: `<Your-Public-SQLServer-Connection-String>`
    - `ASPNETCORE_ENVIRONMENT`: `Production`
-6. Click **Deploy Web Service**. You will receive a permanent HTTPS URL like `https://asquera-lms.onrender.com`.
+6. Click **Deploy Web Service**. You will receive a permanent HTTPS URL like `https://OELearning-lms.onrender.com`.
 
 ---
 

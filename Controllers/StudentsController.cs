@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AsqueraLms.Api.Data;
-using AsqueraLms.Api.DTOs.Students;
-using AsqueraLms.Api.Models.Entities;
-using AsqueraLms.Api.Models.Enums;
-using AsqueraLms.Api.Services.Implementations;
+using OELearning.Api.Data;
+using OELearning.Api.DTOs.Students;
+using OELearning.Api.Models.Entities;
+using OELearning.Api.Models.Enums;
+using OELearning.Api.Services.Implementations;
 
-namespace AsqueraLms.Api.Controllers;
+namespace OELearning.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -59,7 +59,7 @@ public class StudentsController : ControllerBase
                 sp.User.FullName.Contains(s) ||
                 sp.User.PhoneNumber.Contains(s) ||
                 sp.ParentPhoneNumber.Contains(s) ||
-                sp.AsqueraCode.Contains(s)
+                sp.OELearningCode.Contains(s)
             );
         }
 
@@ -84,9 +84,9 @@ public class StudentsController : ControllerBase
                 s.UserId,
                 (page - 1) * pageSize + index + 1,
                 s.User.FullName,
-                s.AsqueraCode,
-                s.Group?.Name ?? "غير محدد",
-                s.Group?.Center.Name ?? "غير محدد",
+                s.OELearningCode,
+                s.Group?.Name ?? "??? ????",
+                s.Group?.Center.Name ?? "??? ????",
                 s.User.PhoneNumber,
                 s.ParentPhoneNumber,
                 $"https://wa.me/{waStudent}",
@@ -122,9 +122,9 @@ public class StudentsController : ControllerBase
             s.UserId,
             1,
             s.User.FullName,
-            s.AsqueraCode,
-            s.Group?.Name ?? "غير محدد",
-            s.Group?.Center.Name ?? "غير محدد",
+            s.OELearningCode,
+            s.Group?.Name ?? "??? ????",
+            s.Group?.Center.Name ?? "??? ????",
             s.User.PhoneNumber,
             s.ParentPhoneNumber,
             $"https://wa.me/{waStudent}",
@@ -142,14 +142,14 @@ public class StudentsController : ControllerBase
     {
         if (await _context.Users.AnyAsync(u => u.PhoneNumber == dto.PhoneNumber))
         {
-            return BadRequest(new { message = "رقم هاتف الطالب مسجل مسبقاً" });
+            return BadRequest(new { message = "??? ???? ?????? ???? ??????" });
         }
 
         var user = new User
         {
             FullName = dto.FullName,
             PhoneNumber = dto.PhoneNumber,
-            Email = $"{dto.PhoneNumber}@student.asquera.com",
+            Email = $"{dto.PhoneNumber}@student.OELearning.com",
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
             Role = UserRole.Student
         };
@@ -161,11 +161,11 @@ public class StudentsController : ControllerBase
         var profile = new StudentProfile
         {
             UserId = user.Id,
-            AsqueraCode = code,
+            OELearningCode = code,
             ParentPhoneNumber = dto.ParentPhoneNumber,
             GroupId = dto.GroupId,
             Status = StudentStatus.Approved,
-            QrCodePayload = $"ASQUERA-STU-{code}-{user.PhoneNumber}"
+            QrCodePayload = $"OELearning-STU-{code}-{user.PhoneNumber}"
         };
 
         _context.StudentProfiles.Add(profile);
@@ -219,7 +219,7 @@ public class StudentsController : ControllerBase
             {
                 FullName = item.FullName,
                 PhoneNumber = item.PhoneNumber,
-                Email = $"{item.PhoneNumber}@student.asquera.com",
+                Email = $"{item.PhoneNumber}@student.OELearning.com",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword("Student@123"),
                 Role = UserRole.Student
             };
@@ -231,11 +231,11 @@ public class StudentsController : ControllerBase
             var profile = new StudentProfile
             {
                 UserId = user.Id,
-                AsqueraCode = code,
+                OELearningCode = code,
                 ParentPhoneNumber = item.ParentPhoneNumber,
                 GroupId = group?.Id,
                 Status = StudentStatus.Approved,
-                QrCodePayload = $"ASQUERA-STU-{code}-{user.PhoneNumber}"
+                QrCodePayload = $"OELearning-STU-{code}-{user.PhoneNumber}"
             };
 
             _context.StudentProfiles.Add(profile);

@@ -1,6 +1,6 @@
-﻿using QRCoder;
+using QRCoder;
 
-namespace AsqueraLms.Api.Services.Implementations;
+namespace OELearning.Api.Services.Implementations;
 
 public interface IQrCodeService
 {

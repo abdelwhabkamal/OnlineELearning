@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using AsqueraLms.Api.Models.Entities;
-using AsqueraLms.Api.Models.Enums;
+using Microsoft.EntityFrameworkCore;
+using OELearning.Api.Models.Entities;
+using OELearning.Api.Models.Enums;
 
-namespace AsqueraLms.Api.Data;
+namespace OELearning.Api.Data;
 
 public static class DbInitializer
 {
@@ -48,9 +48,9 @@ public static class DbInitializer
         var adminPassword = BCrypt.Net.BCrypt.HashPassword("Admin@123456");
         var admin = new User
         {
-            FullName = "Asquera System Admin",
+            FullName = "OELearning System Admin",
             PhoneNumber = "01000000000",
-            Email = "admin@asquera.com",
+            Email = "admin@OELearning.com",
             PasswordHash = adminPassword,
             Role = UserRole.Admin
         };
@@ -60,7 +60,7 @@ public static class DbInitializer
         var studentData = new[]
         {
             ("Jana Ahmed And El Moniem El barbary", "01099277423", "01062047172", "641FF", grpOnline.Id, StudentStatus.Approved),
-            ("دعاء وليد علي محمد", "01091743748", "01228054645", "076QT", grpOnline.Id, StudentStatus.Approved),
+            ("???? ???? ??? ????", "01091743748", "01228054645", "076QT", grpOnline.Id, StudentStatus.Approved),
             ("Zamzam Waleed elsayed", "01008290343", "01205160898", "977UI", grpLouran.Id, StudentStatus.Approved),
             ("Yara Paul liliy", "01555469633", "01102566776", "614TZ", grpAlpha.Id, StudentStatus.Approved),
             ("Yassin Assistant", "01274966249", "0106142279", "646WU", grpLouran.Id, StudentStatus.Approved)
@@ -73,7 +73,7 @@ public static class DbInitializer
             {
                 FullName = name,
                 PhoneNumber = phone,
-                Email = $"{code.ToLower()}@student.asquera.com",
+                Email = $"{code.ToLower()}@student.OELearning.com",
                 PasswordHash = studentPwd,
                 Role = UserRole.Student
             };
@@ -83,11 +83,11 @@ public static class DbInitializer
             var profile = new StudentProfile
             {
                 UserId = user.Id,
-                AsqueraCode = code,
+                OELearningCode = code,
                 ParentPhoneNumber = parentPhone,
                 GroupId = grpId,
                 Status = status,
-                QrCodePayload = $"ASQUERA-STU-{code}-{phone}"
+                QrCodePayload = $"OELearning-STU-{code}-{phone}"
             };
             context.StudentProfiles.Add(profile);
         }
@@ -105,7 +105,7 @@ public static class DbInitializer
         var unit1 = new CurriculumUnit
         {
             CourseId = course.Id,
-            Title = "الوحدة الأولى: التيار الكهربي وقانون أوم وقانونا كيرشوف",
+            Title = "?????? ??????: ?????? ??????? ?????? ??? ??????? ??????",
             Order = 1
         };
         context.CurriculumUnits.Add(unit1);
@@ -114,10 +114,10 @@ public static class DbInitializer
         var lecture1 = new Lecture
         {
             UnitId = unit1.Id,
-            Title = "المحاضرة 1: التيار الكهربي وفرق الجهد والمقاومة النوعية",
-            Description = "شرح تفصيلي مع حل مسائل كتاب الوزارة وبنك الأسئلة",
-            VideoUrl = "https://stream.asquera.com/videos/phys-unit1-lec1.mp4",
-            AttachmentPdfUrl = "https://files.asquera.com/pdfs/unit1-notes.pdf",
+            Title = "???????? 1: ?????? ??????? ???? ????? ????????? ???????",
+            Description = "??? ?????? ?? ?? ????? ???? ??????? ???? ???????",
+            VideoUrl = "https://stream.OELearning.com/videos/phys-unit1-lec1.mp4",
+            AttachmentPdfUrl = "https://files.OELearning.com/pdfs/unit1-notes.pdf",
             Price = 100,
             IsFree = false,
             Order = 1
@@ -129,7 +129,7 @@ public static class DbInitializer
         var exam1 = new Exam
         {
             LectureId = lecture1.Id,
-            Title = "امتحان تقييم المحاضرة الأولى",
+            Title = "?????? ????? ???????? ??????",
             DurationMinutes = 30,
             TotalMarks = 20,
             PassingMarks = 10
@@ -140,17 +140,17 @@ public static class DbInitializer
         var q1 = new Question
         {
             ExamId = exam1.Id,
-            QuestionText = "عند زيادة طول سلك موصل إلى الضعف ونقصان مساحة مقطعه إلى النصف، فإن مقاومته الكهربية:",
+            QuestionText = "??? ????? ??? ??? ???? ??? ????? ?????? ????? ????? ??? ?????? ??? ??????? ????????:",
             Marks = 5
         };
         context.Questions.Add(q1);
         await context.SaveChangesAsync();
 
         context.QuestionOptions.AddRange(
-            new QuestionOption { QuestionId = q1.Id, OptionText = "تزداد إلى 4 أمثالها", IsCorrect = true },
-            new QuestionOption { QuestionId = q1.Id, OptionText = "تظل ثابتة", IsCorrect = false },
-            new QuestionOption { QuestionId = q1.Id, OptionText = "تقل إلى النصف", IsCorrect = false },
-            new QuestionOption { QuestionId = q1.Id, OptionText = "تزداد للضعف فقط", IsCorrect = false }
+            new QuestionOption { QuestionId = q1.Id, OptionText = "????? ??? 4 ???????", IsCorrect = true },
+            new QuestionOption { QuestionId = q1.Id, OptionText = "??? ?????", IsCorrect = false },
+            new QuestionOption { QuestionId = q1.Id, OptionText = "??? ??? ?????", IsCorrect = false },
+            new QuestionOption { QuestionId = q1.Id, OptionText = "????? ????? ???", IsCorrect = false }
         );
 
         await context.SaveChangesAsync();
