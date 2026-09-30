@@ -1,7 +1,9 @@
 services:
-  # 1. SQL Server Express Container
+  # 1. SQL Server Express Container with Low-Memory Shim
   db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    build:
+      context: .
+      dockerfile: Dockerfile.sql
     container_name: oelearning_db
     restart: always
     environment:
