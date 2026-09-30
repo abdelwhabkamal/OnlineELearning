@@ -1,0 +1,35 @@
+services:
+  # 1. SQL Server Express Container
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: oelearning_db
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "YourStrong@Password123!"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  # 2. .NET 9 API Web Service
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: oelearning_api
+    restart: always
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      ConnectionStrings__DefaultConnection: "Server=db,1433;Database=OELearningDb;User Id=sa;Password=YourStrong@Password123!;TrustServerCertificate=True;MultipleActiveResultSets=true;"
+      Jwt__Key: "OELearningSuperSecretKeyLongEnoughForHmacSha256Security12345!"
+      Jwt__Issuer: "OELearningApi"
+      Jwt__Audience: "OELearningWebClient"
+    ports:
+      - "80:8080"
+    depends_on:
+      - db
+
+volumes:
+  sql_data:
